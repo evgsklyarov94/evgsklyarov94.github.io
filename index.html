@@ -38,6 +38,7 @@
           viewer.camera,
           viewer.renderer.domElement,
           viewer.scene,
+          () => window.ReactNativeWebView.postMessage(JSON.stringify({ action: 'SPIN_IMGS_UPLOADED' })),
       );
       viewer.add(scene);
       viewerManager.add(viewer); // start at building

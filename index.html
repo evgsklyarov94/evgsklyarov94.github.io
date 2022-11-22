@@ -2,50 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #000;
-    }
-  </style>
-  <script src="https://az.360-data.com/assets/js/threejs/r105/three.min.js"></script>
-  <script src="./panolens.min.js"></script>
-  <title>Evgeny Sklayrov IO</title>
+  <title>Document</title>
 </head>
 <body>
-  <script type="module">
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const path = urlSearchParams.get('path');
+  <div class="container">
+    <h1>Integration with third-party service</h1>
 
-    if (path) {
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-      const viewerManager = new PANOLENS.ViewerManager();
-      const viewer = new PANOLENS.Viewer(viewerManager.options);
+    <label for="serviceName" style="margin-top: 30px; display: inline-block;">Choose a service:</label>
+    <select name="serviceName" id="serviceName">
+      <option value="aryeo">
+        Aryeo
+      </option>
+    </select>
 
-      let images = [];
+    <br />
+    <label for="callbackUrl" style="margin-top: 30px; display: inline-block;">Add callback url:</label>
+    <input
+      id="callbackUrl"
+      name="callbackUrl"
+      style="width: 500px;"
 
-      for (let i = 1; i <= 32; i++) {
-        images.push(`${path}${i}.jpg`);
-      }
+      value="https://dev.cloudpano.com/tours/demo"
+    />
 
-      const scene = new PANOLENS.SpinPanorama(
-          images,
-          viewer.camera,
-          viewer.renderer.domElement,
-          viewer.scene,
-          () => {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ action: 'SPIN_IMGS_UPLOADED' }))
-          },
-      );
-      viewer.add(scene);
-      viewerManager.add(viewer); // start at building
-      viewerManager.setScene(viewer)
-    }
-  </script>
+    <br />
+    <button
+      id="connection-btn"
+      style="margin-top: 30px;"
+      onclick="onConnection()"
+    >
+      Connect integration
+    </button>
+
+  </div>
+
+
+  <script src="https://evgsklyarov94.github.io/script.js"></script>
 </body>
 </html>
